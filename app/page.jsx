@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Rose, Share2, Heart } from "lucide-react";
+import { Flower2, Share2, Heart } from "lucide-react";
 
 const messages = [
   "You are the rose that makes my world bloom 🌹",
@@ -107,7 +107,7 @@ export default function RoseDayPage() {
             <>
               {!opened ? (
                 <>
-                  <Rose className="w-16 h-16 mx-auto mb-6 animate-pulse" />
+                  <Flower2 className="w-16 h-16 mx-auto mb-6 animate-pulse" />
                   <h2 className="text-2xl font-bold mb-6">
                     A rose is waiting for you 🌹
                   </h2>
@@ -121,7 +121,7 @@ export default function RoseDayPage() {
               ) : (
                 <>
                   <Petals />
-                  <Rose className="w-20 h-20 mx-auto mb-4 animate-bounce" />
+                  <flower2 className="w-20 h-20 mx-auto mb-4 animate-bounce" />
                   <h2 className="text-2xl font-bold mb-2">Dear {to}</h2>
                   <p className="italic mb-4">{finalMsg}</p>
                   <p className="text-sm opacity-80 mb-6">— {from}</p>
@@ -136,7 +136,7 @@ export default function RoseDayPage() {
             </>
           ) : (
             <>
-              <Rose className="w-12 h-12 mx-auto mb-4" />
+              <flower2 className="w-12 h-12 mx-auto mb-4" />
               <h1 className="text-3xl font-bold mb-2">Rose Day Special</h1>
               <p className="text-sm mb-6 opacity-90">
                 Create a rose for someone special 💕
