@@ -14,12 +14,12 @@ const messages = [
 
 function Petals() {
   return (
-    <div className="pointer-events-none fixed inset-0 overflow-hidden">
+    <div style={styles.petalsContainer}>
       {Array.from({ length: 18 }).map((_, i) => (
         <span
           key={i}
-          className="absolute top-[-10%] animate-fall"
           style={{
+            ...styles.petal,
             left: `${Math.random() * 100}%`,
             animationDelay: `${Math.random() * 5}s`,
             fontSize: `${12 + Math.random() * 18}px`,
@@ -83,6 +83,10 @@ export default function RoseDayPage() {
   return (
     <>
       <style jsx global>{`
+        body {
+          margin: 0;
+          font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        }
         @keyframes fall {
           0% {
             transform: translateY(-10vh) rotate(0deg);
@@ -96,81 +100,63 @@ export default function RoseDayPage() {
             opacity: 0;
           }
         }
-        .animate-fall {
-          animation: fall 8s linear infinite;
-        }
       `}</style>
 
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-500 via-rose-500 to-purple-500 p-4 text-white">
-        <div className="w-full max-w-md rounded-3xl bg-white/20 backdrop-blur-xl shadow-xl p-8 text-center">
+      <div style={styles.page}>
+        <div style={styles.card}>
           {showRose ? (
-            <>
-              {!opened ? (
-                <>
-                  <Flower2 className="w-16 h-16 mx-auto mb-6 animate-pulse" />
-                  <h2 className="text-2xl font-bold mb-6">
-                    A rose is waiting for you 🌹
-                  </h2>
-                  <button
-                    onClick={() => setOpened(true)}
-                    className="w-full py-3 rounded-full bg-gradient-to-r from-red-500 to-pink-500 font-semibold"
-                  >
-                    Open your rose 🌹
-                  </button>
-                </>
-              ) : (
-                <>
-                  <Petals />
-                  <flower2 className="w-20 h-20 mx-auto mb-4 animate-bounce" />
-                  <h2 className="text-2xl font-bold mb-2">Dear {to}</h2>
-                  <p className="italic mb-4">{finalMsg}</p>
-                  <p className="text-sm opacity-80 mb-6">— {from}</p>
-                  <button
-                    onClick={shareLink}
-                    className="w-full py-3 rounded-full bg-gradient-to-r from-red-500 to-pink-500 flex items-center justify-center gap-2"
-                  >
-                    <Share2 size={16} /> Share
-                  </button>
-                </>
-              )}
-            </>
+            !opened ? (
+              <>
+                <Flower2 size={64} />
+                <h2>A rose is waiting for you 🌹</h2>
+                <button style={styles.button} onClick={() => setOpened(true)}>
+                  Open your rose 🌹
+                </button>
+              </>
+            ) : (
+              <>
+                <Petals />
+                <Flower2 size={80} />
+                <h2>Dear {to}</h2>
+                <p style={styles.message}>{finalMsg}</p>
+                <p style={styles.from}>— {from}</p>
+                <button style={styles.button} onClick={shareLink}>
+                  <Share2 size={16} /> Share
+                </button>
+              </>
+            )
           ) : (
             <>
-              <flower2 className="w-12 h-12 mx-auto mb-4" />
-              <h1 className="text-3xl font-bold mb-2">Rose Day Special</h1>
-              <p className="text-sm mb-6 opacity-90">
-                Create a rose for someone special 💕
-              </p>
+              <Flower2 size={48} />
+              <h1>Rose Day Special</h1>
+              <p>Create a rose for someone special 💕</p>
 
               <input
+                style={styles.input}
                 placeholder="Your name"
                 value={from}
                 onChange={(e) => setFrom(e.target.value)}
-                className="w-full mb-3 px-4 py-2 rounded-lg bg-white/20 placeholder-white/70 outline-none"
               />
 
               <input
+                style={styles.input}
                 placeholder="Their name"
                 value={to}
                 onChange={(e) => setTo(e.target.value)}
-                className="w-full mb-3 px-4 py-2 rounded-lg bg-white/20 placeholder-white/70 outline-none"
               />
 
               <input
+                style={styles.input}
                 placeholder="Custom message (optional)"
                 value={customMsg}
                 onChange={(e) => setCustomMsg(e.target.value)}
-                className="w-full mb-4 px-4 py-2 rounded-lg bg-white/20 placeholder-white/70 outline-none"
               />
 
-              <button
-                onClick={createLink}
-                className="w-full py-3 rounded-full bg-gradient-to-r from-red-500 to-pink-500 font-semibold"
-              >
+              <button style={styles.button} onClick={createLink}>
                 Create Rose Link 🌹
               </button>
 
-              <div className="flex justify-center items-center gap-1 text-xs mt-4 opacity-80">
+              <div style={styles.footer}>
                 <Heart size={14} /> Made with love
               </div>
             </>
@@ -180,3 +166,76 @@ export default function RoseDayPage() {
     </>
   );
 }
+
+const styles = {
+  page: {
+    minHeight: "100vh",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    background:
+      "linear-gradient(135deg, #ec4899, #f43f5e, #a855f7)",
+    padding: "16px",
+    color: "white",
+    textAlign: "center",
+  },
+  card: {
+    width: "100%",
+    maxWidth: "380px",
+    background: "rgba(255,255,255,0.2)",
+    borderRadius: "24px",
+    padding: "24px",
+    backdropFilter: "blur(12px)",
+  },
+  input: {
+    width: "100%",
+    padding: "10px",
+    marginBottom: "10px",
+    borderRadius: "8px",
+    border: "none",
+    outline: "none",
+  },
+  button: {
+    width: "100%",
+    padding: "12px",
+    borderRadius: "999px",
+    border: "none",
+    background: "linear-gradient(to right, #ef4444, #ec4899)",
+    color: "white",
+    fontWeight: "bold",
+    cursor: "pointer",
+    marginTop: "12px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: "8px",
+  },
+  message: {
+    fontStyle: "italic",
+    margin: "12px 0",
+  },
+  from: {
+    opacity: 0.8,
+    marginBottom: "12px",
+  },
+  footer: {
+    marginTop: "12px",
+    fontSize: "12px",
+    opacity: 0.8,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: "4px",
+  },
+  petalsContainer: {
+    position: "fixed",
+    inset: 0,
+    pointerEvents: "none",
+    overflow: "hidden",
+  },
+  petal: {
+    position: "absolute",
+    top: "-10%",
+    animation: "fall 8s linear infinite",
+  },
+};
