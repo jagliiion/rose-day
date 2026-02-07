@@ -1,6 +1,6 @@
 # rose-day
 ├─ app
-│  ├─ page.jsx   ← OUR CODE GOES HERE
+│  ├─ page.jsx   
 │  └─ layout.jsx
 ├─ public
 ├─ package.json
